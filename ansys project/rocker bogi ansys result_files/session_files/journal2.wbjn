@@ -1,0 +1,51 @@
+# encoding: utf-8
+# 2025 R2
+SetScriptVersion(Version="25.2.170")
+system1 = GetSystem(Name="SYS")
+system1.Update(AllDependencies=True)
+results1 = system1.GetContainer(ComponentName="Results")
+results1.Edit()
+template1 = GetTemplate(
+    TemplateName="Steady-State Thermal",
+    Solver="ANSYS")
+system2 = template1.CreateSystem(
+    Position="Below",
+    RelativeTo=system1)
+template2 = GetTemplate(
+    TemplateName="Static Structural",
+    Solver="ANSYS")
+engineeringDataComponent1 = system2.GetComponent(Name="Engineering Data")
+componentTemplate1 = GetComponentTemplate(Name="SimulationModelCellTemplate")
+geometryComponent1 = system2.GetComponent(Name="Geometry")
+system3 = template2.CreateSystem(
+    ComponentsToShare=[engineeringDataComponent1],
+    DataTransferTo=[Set(FromComponentTemplate=componentTemplate1, TransferName=None, ToComponent=geometryComponent1)],
+    Position="Left",
+    RelativeTo=system2)
+system3.Delete()
+system2.Delete()
+system4 = template1.CreateSystem(
+    Position="Left",
+    RelativeTo=system1)
+system4.Delete()
+system1.Copy(KeepConnections=True)
+system5 = GetSystem(Name="SYS 1")
+system5.Delete()
+engineeringDataComponent2 = system1.GetComponent(Name="Engineering Data")
+geometryComponent2 = system1.GetComponent(Name="Geometry")
+system6 = template1.CreateSystem(
+    ComponentsToShare=[engineeringDataComponent2, geometryComponent2],
+    Position="Right",
+    RelativeTo=system1)
+system6.Delete()
+modelComponent1 = system1.GetComponent(Name="Model")
+system7 = template1.CreateSystem(
+    ComponentsToShare=[engineeringDataComponent2, geometryComponent2, modelComponent1],
+    Position="Right",
+    RelativeTo=system1)
+setup1 = system7.GetContainer(ComponentName="Setup")
+setup1.Edit()
+model1 = system1.GetContainer(ComponentName="Model")
+model1.Exit()
+Save(Overwrite=True)
+Save(Overwrite=True)

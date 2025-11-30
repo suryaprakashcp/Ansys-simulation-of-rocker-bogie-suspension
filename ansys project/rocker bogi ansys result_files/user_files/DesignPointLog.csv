@@ -1,0 +1,16 @@
+﻿# 
+# This file contains the parameter values of the Design Points successfully updated by Ansys Workbench.
+# Project name: rocker bogi ansys result
+# Creation date: 11/11/2025 08:59:15
+# 
+# 11/11/2025 08:59:15
+# The parameters defined in the project are:
+# ,P1 - Mesh Element Size [m],P2 - Mesh Target Element Quality,P3 - Mesh Defeature Size [m],P4 - Static Structural Environment Temperature [C]
+# 
+# The following header line defines the name of the columns by reference to the parameters.
+Name,P1,P2,P3,P4
+DP 0,0,0,0,30
+# 
+# A non parametric change occurred and invalidated design point results.
+# 11/12/2025 21:56:04
+# 
